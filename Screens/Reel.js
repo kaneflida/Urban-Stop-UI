@@ -1,69 +1,76 @@
 import React from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    ImageBackground,
-    TextInput,
-    Image,
-    TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import User from "../Components/user";
 import CustomButtons from "../Components/buttons";
 import CustomButton from "../Components/button";
+import { Video } from "expo-av";
+
+import VideoData from "../Data/Dummy";
 
 const Reel = (props) => {
     return (
         <View style={styles.screen}>
-            <ImageBackground
-                source={{
-                    uri:
-                        "https://images.unsplash.com/photo-1583249667700-a1a04fe12888?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
+            <Video
+                source={props.VideoData.uri}
+                rate={1.0}
+                volume={1.0}
+                isMuted={false}
+                resizeMode="cover"
+                isLooping
+                shouldPlay={false}
+                style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    alignItems: "stretch",
                 }}
-                style={styles.image}>
-                <View style={styles.container}>
-                    <View style={styles.subContainer}>
-                        <View style={styles.title}>
-                            <Text style={styles.titleText}>Farmer's Name</Text>
-                        </View>
-                        <View style={styles.description}>
-                            <Text style={styles.descriptionText}>
-                                Video Description - lorem ipsum solo ra samet
-                            </Text>
-                        </View>
-                        <View style={styles.comment}>
-                            <User />
-                            <User />
-                        </View>
-                        <View style={styles.Input}>
-                            <TextInput
-                                placeholder="Type here ..."
-                                placeholderTextColor={"grey"}
-                                textAlignVertical="center"
-                                style={styles.InputText}
-                                multiline={true}
-                            />
-                        </View>
+            />
+            <View style={styles.container}>
+                <View style={styles.subContainer}>
+                    <View style={styles.title}>
+                        <Text style={styles.titleText}>
+                            {props.VideoData.title}
+                        </Text>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            <Image
-                                source={require("../Data/Images/profile.jpg")}
-                                style={{
-                                    width: 50,
-                                    height: 50,
-                                    borderRadius: 25,
-                                }}
-                            />
-                            <CustomButtons />
-                        </View>
-                        <CustomButton style={styles.sendButton}>
-                            <Ionicons name="md-send" size={25} color="white" />
-                        </CustomButton>
+                    <View style={styles.description}>
+                        <Text style={styles.descriptionText}>
+                            {props.VideoData.description}
+                        </Text>
+                    </View>
+                    <View style={styles.comment}>
+                        <User comment={props.VideoData.comments[0]} />
+                        <User comment={props.VideoData.comments[1]} />
+                    </View>
+                    <View style={styles.Input}>
+                        <TextInput
+                            placeholder="Type here ..."
+                            placeholderTextColor={"grey"}
+                            textAlignVertical="center"
+                            style={styles.InputText}
+                            multiline={true}
+                        />
                     </View>
                 </View>
-            </ImageBackground>
+                <View style={styles.buttonContainer}>
+                    <View style={styles.button}>
+                        <Image
+                            source={props.VideoData.user.picture}
+                            style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 25,
+                            }}
+                        />
+                        <CustomButtons />
+                    </View>
+                    <CustomButton style={styles.sendButton}>
+                        <Ionicons name="md-send" size={25} color="white" />
+                    </CustomButton>
+                </View>
+            </View>
         </View>
     );
 };
@@ -100,7 +107,6 @@ const styles = StyleSheet.create({
         marginLeft: 15,
     },
     description: {
-        // backgroundColor: "red",
         marginBottom: 5,
         maxWidth: 260,
     },
@@ -128,12 +134,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "20%",
         paddingTop: 10,
-        marginBottom:150
+        marginBottom: 150,
     },
     sendButton: {
-        height:50,
-        width:50,
-        borderRadius:25,
+        height: 50,
+        width: 50,
+        borderRadius: 25,
         paddingLeft: 15,
         backgroundColor: "green",
     },

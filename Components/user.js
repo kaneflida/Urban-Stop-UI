@@ -16,10 +16,10 @@ const user = (props) => {
             </View>
             <View style={styles.profileTextContainer}>
                 <Text style={styles.profileName} numberOfLines={1}>
-                    Follower Name
+                    {props.comment.user.username}
                 </Text>
                 <Text style={styles.comment} numberOfLines={1}>
-                    Comment - Lorem Ipsum
+                    {props.comment.comment}
                 </Text>
             </View>
         </View>
